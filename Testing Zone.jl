@@ -1,4 +1,22 @@
+#Notes: 
+# line 11 - issues with read_data.jl not here
+#response to 
+#  include("Read test.jl")
+#  include("Testing Zone.jl")
+#  v, M, A,s = read_data("Test Case.eaf")
+#  tiers_of_interest = ["Brows","Gloss"]
+#
+#LoadError: BoundsError: attempt to access 0-element UnitRange{Int64} at index [0] JRR 10/17/18
+#while loading /mnt/juliabox/Testing Zone.jl, in expression starting on line 11    JRR 10/17/18
+#Stacktrace:                             
+# [1] throw_boundserror(::UnitRange{Int64}, ::Int64) at ./abstractarray.jl:434     JRR 10/17/18
+# [2] getindex at ./range.jl:477 [inlined]                                         JRR 10/17/18
+# [4] include_from_node1(::String) at ./loading.jl:576                             JRR 10/17/18
+# [5] include(::String) at ./sysimg.jl:14                                          JRR 10/17/18
 
+
+
+TIERS NUMBER IS 13
 include("read_data.jl")
 include("overlap_of_tiers.jl")
 
@@ -8,8 +26,8 @@ function input(prompt::AbstractString="")
 end
 
 fn = input("What is the filename you would like to process?\n")
-v,M,A,s = read_data(fn)  #this does not make sense, defining multiple variables off one thing, doesn't work, issues arise here#
-println("Tiers available in this file are $s") #Bounds Error
+v,M,A,s = read_data(fn)  #issues with read_data.jl not here JR 10/17/18
+println("Tiers available in this file are $s") 
 x = parse(Int,input("How many tiers are you looking for?\n"))
 input_tiers = AbstractString[]
 for i = 1:x
@@ -65,14 +83,4 @@ savevalue(TOTAL,fn)
 # println("The unique annotations are $annotations_unique")
 # println("The respective unique annotations counts are $annotations_counts")
 
-#the issue in line 11 prevents further use need to fix not sure how to yet
-#first step fix line 11
-#LoadError: BoundsError: attempt to access 0-element UnitRange{Int64} at index [0]
-#while loading /mnt/juliabox/Testing Zone.jl, in expression starting on line 11
-#Stacktrace:
-# [1] throw_boundserror(::UnitRange{Int64}, ::Int64) at ./abstractarray.jl:434
-# [2] getindex at ./range.jl:477 [inlined]
-# [3] read_data(::SubString{String}) at /mnt/juliabox/read_data.jl:146
-# [4] include_from_node1(::String) at ./loading.jl:576
-# [5] include(::String) at ./sysimg.jl:14
 
